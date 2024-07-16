@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Barcode Scanner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let barcode of barcodes">
+      <ion-card-header>
+        <ion-card-title>{{ barcode.format }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label position="stacked">Raw Value</ion-label>
+          <ion-text>{{ barcode.rawValue }}</ion-text>
+        </ion-item>
+        <ion-list *ngIf="barcode.formattedData">
+          <ion-item *ngFor="let data of barcode.formattedData" lines="inset">
+            <ion-label>{{ data.label }}</ion-label>
+            <ion-text>{{ data.value }}</ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="scan()" [disabled]="!isSupported">
+      <ion-icon name="scan"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
